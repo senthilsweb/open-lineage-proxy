@@ -216,12 +216,11 @@ export default function Home() {
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
                 This project serves as a debugging proxy for OpenLineage events emitted by various data integration and transformation tools:
               </p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
                   { name: 'dbt', icon: '🔧', desc: 'Data Build Tool', gradient: 'from-orange-400 to-red-500' },
                   { name: 'Apache Spark', icon: '⚡', desc: 'Big Data Processing', gradient: 'from-yellow-400 to-orange-500' },
-                  { name: 'Apache Airflow', icon: '🌊', desc: 'Workflow Management', gradient: 'from-blue-400 to-cyan-500' },
-                  { name: 'Pentaho PDI', icon: '🔄', desc: 'Data Integration', gradient: 'from-green-400 to-blue-500' }
+                  { name: 'Apache Airflow', icon: '🌊', desc: 'Workflow Management', gradient: 'from-blue-400 to-cyan-500' }
                 ].map((tool) => (
                   <div key={tool.name} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-200 group">
                     <div className="text-3xl mb-3">{tool.icon}</div>

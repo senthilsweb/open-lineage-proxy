@@ -15,7 +15,7 @@ Successfully converted the OpenLineage proxy API project into a professional, in
 ### 2. **Complete API Documentation**
 - Comprehensive overview of OpenLineage proxy functionality
 - Detailed installation and configuration guides
-- Usage examples for dbt, Apache Spark, Apache Airflow, and Pentaho PDI
+- Usage examples for dbt, Apache Spark, and Apache Airflow
 - Interactive API testing functionality
 - Copy-to-clipboard code blocks with syntax highlighting
 
@@ -91,7 +91,7 @@ open-lineage-proxy/
 
 ### Homepage Sections:
 1. **Hero Section** - Eye-catching introduction with interactive API test
-2. **Overview** - Supported tools (dbt, Spark, Airflow, Pentaho)
+2. **Overview** - Supported tools (dbt, Spark, Airflow)
 3. **Features** - Six key capabilities with icons
 4. **Installation** - Step-by-step setup guide
 5. **Configuration** - Environment setup instructions

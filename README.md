@@ -8,7 +8,6 @@ This project serves as a debugging proxy for OpenLineage events emitted by vario
 - **dbt** (Data Build Tool)
 - **Apache Spark**
 - **Apache Airflow**
-- **Pentaho Data Integration (PDI)**
 - Any other tool that supports OpenLineage standard
 
 The proxy captures incoming OpenLineage events and saves them as uniquely named JSON files with incremental counters for easy tracking and debugging.
