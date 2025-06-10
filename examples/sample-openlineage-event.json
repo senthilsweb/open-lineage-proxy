@@ -1,0 +1,114 @@
+{
+  "eventType": "START",
+  "eventTime": "2024-01-20T10:00:00.000Z",
+  "run": {
+    "runId": "12345678-1234-1234-1234-123456789012",
+    "facets": {
+      "nominalTime": {
+        "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/NominalTimeRunFacet.json",
+        "nominalStartTime": "2024-01-20T09:00:00.000Z",
+        "nominalEndTime": "2024-01-20T10:00:00.000Z"
+      }
+    }
+  },
+  "job": {
+    "namespace": "dev",
+    "name": "dbt_analytics.customers_summary",
+    "facets": {
+      "documentation": {
+        "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/DocumentationJobFacet.json",
+        "description": "Customer summary analytics table"
+      },
+      "sql": {
+        "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+        "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/SQLJobFacet.json",
+        "query": "SELECT customer_id, COUNT(*) as order_count, SUM(amount) as total_amount FROM orders GROUP BY customer_id"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "namespace": "dev",
+      "name": "raw_data.orders",
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+          "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/SchemaDatasetFacet.json",
+          "fields": [
+            {
+              "name": "order_id",
+              "type": "INTEGER",
+              "description": "Unique order identifier"
+            },
+            {
+              "name": "customer_id",
+              "type": "INTEGER",
+              "description": "Customer identifier"
+            },
+            {
+              "name": "amount",
+              "type": "DECIMAL",
+              "description": "Order amount"
+            },
+            {
+              "name": "order_date",
+              "type": "TIMESTAMP",
+              "description": "Order timestamp"
+            }
+          ]
+        },
+        "dataSource": {
+          "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+          "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/DatasourceDatasetFacet.json",
+          "name": "postgresql://localhost:5432/analytics",
+          "uri": "postgresql://localhost:5432/analytics"
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "namespace": "dev",
+      "name": "analytics.customers_summary",
+      "facets": {
+        "schema": {
+          "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+          "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/SchemaDatasetFacet.json",
+          "fields": [
+            {
+              "name": "customer_id",
+              "type": "INTEGER",
+              "description": "Customer identifier"
+            },
+            {
+              "name": "order_count",
+              "type": "BIGINT",
+              "description": "Total number of orders"
+            },
+            {
+              "name": "total_amount",
+              "type": "DECIMAL",
+              "description": "Total order amount"
+            }
+          ]
+        },
+        "dataSource": {
+          "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+          "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/DatasourceDatasetFacet.json",
+          "name": "postgresql://localhost:5432/analytics",
+          "uri": "postgresql://localhost:5432/analytics"
+        },
+        "outputStatistics": {
+          "_producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+          "_schemaURL": "https://openlineage.io/spec/facets/1-0-0/OutputStatisticsOutputDatasetFacet.json",
+          "rowCount": 1250,
+          "size": 50000
+        }
+      }
+    }
+  ],
+  "producer": "https://github.com/OpenLineage/OpenLineage/tree/0.21.1/integration/dbt",
+  "schemaURL": "https://openlineage.io/spec/1-0-5/OpenLineage.json"
+}
