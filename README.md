@@ -25,7 +25,7 @@ The proxy captures incoming OpenLineage events and saves them as uniquely named 
 
 1. **Clone the repository**:
    ```bash
-   git clone <repository-url>
+   https://github.com/senthilsweb/open-lineage-proxy.git
    cd open-lineage-proxy
    ```
 

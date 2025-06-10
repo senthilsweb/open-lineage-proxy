@@ -358,7 +358,7 @@ export default function Home() {
                     Clone the repository
                   </h3>
                   <CodeBlock id="clone">
-{`git clone <repository-url>
+{`git clone https://github.com/senthilsweb/open-lineage-proxy.git
 cd open-lineage-proxy`}
                   </CodeBlock>
                 </div>
