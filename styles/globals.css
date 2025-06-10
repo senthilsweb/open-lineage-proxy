@@ -20,6 +20,8 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -28,6 +30,15 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
+}
+
+/* Prevent zoom on input focus on iOS */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px;
+  }
 }
 
 /* Custom scrollbar */
@@ -135,4 +146,24 @@ html {
 .status-offline {
   background: rgba(239, 68, 68, 0.2);
   color: #ef4444;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  /* Reduce animation on mobile for better performance */
+  .animate-pulse-slow {
+    animation: none;
+  }
+  
+  /* Better touch targets */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Prevent layout shifts */
+  .container {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
