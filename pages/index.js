@@ -144,18 +144,18 @@ export default function Home() {
                   <a href="#usage" className="text-gray-300 hover:text-white transition-colors">Usage</a>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <a 
-                    href="/api/status" 
-                    className="text-gray-300 hover:text-white transition-colors text-sm px-3 py-1 rounded-full bg-white/10 hover:bg-white/20"
+                  <button 
+                    onClick={() => window.open('/api/status', '_blank')}
+                    className="text-gray-300 hover:text-white transition-colors text-sm px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 cursor-pointer"
                   >
                     Status
-                  </a>
-                  <a 
-                    href="/api/health" 
-                    className="text-gray-300 hover:text-white transition-colors text-sm px-3 py-1 rounded-full bg-white/10 hover:bg-white/20"
+                  </button>
+                  <button 
+                    onClick={() => window.open('/api/health', '_blank')}
+                    className="text-gray-300 hover:text-white transition-colors text-sm px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 cursor-pointer"
                   >
                     Health
-                  </a>
+                  </button>
                 </div>
               </div>
 
@@ -215,18 +215,18 @@ export default function Home() {
                     Usage
                   </a>
                   <div className="flex flex-col space-y-2 pt-2 border-t border-white/10">
-                    <a 
-                      href="/api/status" 
-                      className="text-gray-300 hover:text-white transition-colors py-2 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-center"
+                    <button 
+                      onClick={() => window.open('/api/status', '_blank')}
+                      className="text-gray-300 hover:text-white transition-colors py-2 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-center cursor-pointer"
                     >
                       API Status
-                    </a>
-                    <a 
-                      href="/api/health" 
-                      className="text-gray-300 hover:text-white transition-colors py-2 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-center"
+                    </button>
+                    <button 
+                      onClick={() => window.open('/api/health', '_blank')}
+                      className="text-gray-300 hover:text-white transition-colors py-2 px-3 rounded-lg bg-white/10 hover:bg-white/20 text-center cursor-pointer"
                     >
                       Health Check
-                    </a>
+                    </button>
                   </div>
                   {/* Mobile API Status Details */}
                   {apiStatus && (
@@ -464,8 +464,8 @@ dbt-ol run`}
                 </h3>
                 <p className="text-gray-300 mb-4">Receives OpenLineage events and saves them as JSON files.</p>
                 <div className="space-y-2 text-sm">
-                  <div className="text-green-400">✅ 200 OK: "Payload saved successfully"</div>
-                  <div className="text-red-400">❌ 500 Error: "Error writing to file"</div>
+                  <div className="text-green-400">✅ 200 OK: &quot;Payload saved successfully&quot;</div>
+                  <div className="text-red-400">❌ 500 Error: &quot;Error writing to file&quot;</div>
                 </div>
               </div>
               

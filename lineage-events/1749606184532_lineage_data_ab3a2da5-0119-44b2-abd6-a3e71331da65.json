@@ -1,0 +1,15 @@
+{
+  "eventType": "START",
+  "eventTime": "2024-01-20T10:00:00.000Z",
+  "run": {
+    "runId": "test-build-verification"
+  },
+  "job": {
+    "namespace": "dev",
+    "name": "build_test"
+  },
+  "inputs": [],
+  "outputs": [],
+  "producer": "build-verification",
+  "schemaURL": "https://openlineage.io/spec/1-0-5/OpenLineage.json"
+}

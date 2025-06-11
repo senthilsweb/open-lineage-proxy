@@ -32,42 +32,15 @@
  * @since 2024
  */
 
-const express = require('express');
-const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const lockfile = require('proper-lockfile');
 
-const app = express();
-const port = 3000;
-
-// Counter file path
-const counterFilePath = path.join(__dirname, 'counter.txt');
-
-// Initialize counter file if it doesn't exist
-if (!fs.existsSync(counterFilePath)) {
-    fs.writeFileSync(counterFilePath, '0');
-}
-
-/**
- * Safely increments the counter file using file locking to prevent race conditions
- * @param {Function} callback - Callback function to execute with the updated counter value
- */
-function incrementCounter(callback) {
-    lockfile.lock(counterFilePath, { realpath: false }).then((release) => {
-        let currentCount = parseInt(fs.readFileSync(counterFilePath, { encoding: 'utf8' }), 10);
-        currentCount += 1;
-        fs.writeFileSync(counterFilePath, currentCount.toString(), { encoding: 'utf8' });
-
-        // Call the callback function with the updated count
-        callback(currentCount);
-
-        // Release the lock
-        release();
-    }).catch(err => {
-        console.error('Error acquiring lock:', err);
-    });
+// For serverless environments, we'll use timestamp instead of file-based counter
+function generateUniqueFilename() {
+    const timestamp = Date.now();
+    const uniqueId = uuidv4();
+    return `${timestamp}_lineage_data_${uniqueId}.json`;
 }
 
 /**
@@ -78,26 +51,39 @@ function incrementCounter(callback) {
  * @param {NextApiResponse} res - The outgoing response object
  */
 export default function handler(req, res) {
-    const data = req.body;
+    // Only accept POST requests
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
 
-    // Generate a unique filename using UUID
-    const uniqueId = uuidv4();
+    try {
+        const data = req.body;
 
-    // Increment the counter safely
-    incrementCounter((counter) => {
-        const paddedCounter = String(counter).padStart(3, '0'); // Pads the counter with leading zeros
-        const fileName = `${paddedCounter}_lineage_data_${uniqueId}.json`;
-        const filePath = path.join(__dirname, fileName);
+        // Generate a unique filename using timestamp and UUID
+        const fileName = generateUniqueFilename();
+        
+        // In development, save to a local directory
+        // In production/serverless, this would need to be adapted for your storage solution
+        const filePath = path.join(process.cwd(), 'lineage-events', fileName);
+        
+        // Ensure directory exists
+        const dir = path.dirname(filePath);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
 
-        // Write the JSON payload to a file with a unique counter and UUID in the filename
-        fs.writeFile(filePath, JSON.stringify(data, null, 2), (err) => {
-            if (err) {
-                console.error('Error writing to file:', err);
-                return res.status(500).send('Error writing to file');
-            }
+        // Write the JSON payload to a file
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-            console.log(`Payload saved to ${fileName}`);
-            res.send(`Payload saved successfully to ${fileName}`);
+        console.log(`OpenLineage event saved to ${fileName}`);
+        
+        res.status(200).json({ 
+            message: 'OpenLineage event saved successfully',
+            filename: fileName,
+            timestamp: new Date().toISOString()
         });
-    });
+    } catch (error) {
+        console.error('Error saving OpenLineage event:', error);
+        res.status(500).json({ error: 'Failed to save OpenLineage event' });
+    }
 }
